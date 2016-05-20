@@ -1,0 +1,39 @@
+<nav class="navbar navbar-default navbar-static-top">
+  
+  <div class="container">
+    <ul class="nav navbar-nav">
+      <li class="navbar-left">
+        <a href="/">
+          <img alt="Brand" src="/images/logosmall.png" style="height:50px">
+        </a>
+      </li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+
+        <% if(typeof(MemberInfo) != 'undefined') { %>
+          <% if(MemberInfo.fname != 'admin') { %>
+            <li style="margin-top:15px;">
+              <a href="/favList"><span class="glyphicon glyphicon-heart"></span>Favorite</a>
+            </li>
+            <li style="margin-top:15px;">
+              <a href="/recommend" class="recommend"><span class="glyphicon glyphicon-thumbs-up"></span>Recommends</a>
+            </li>
+            <li style="margin-top:15px;">
+              <a href="/updateProfile" class="username"><span class="glyphicon glyphicon-user"></span> <%= MemberInfo.fname %></a>
+            </li>
+          <% } else { %>
+            <li style="margin-top:15px;">
+              <a href="/admin" class="username"><span class="glyphicon glyphicon-user"></span> <%= MemberInfo.fname %></a>
+            </li>
+          <% } %>
+        <%  } else {%>
+        <li>
+          <div>
+          <a href="/register"><button type="button" class="btn green-Sign ">Sign Up</button></a>
+          <a href="/login"><button type="button" class="btn green-Sign">Sign In</button></a>
+          </div>
+        </li>
+        <% } /*end if(MemberInfo)*/%>
+    </ul>
+  </div>
+</nav>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <% include ../partials/header.ejs %>
+</head>
+
+<body>
+  <% include ../partials/nav.ejs %>
+  <div class="container">
+
+    <!-- row 4  service detail-->
+    <div class="container col-lg-12" style="margin-top:15px; ">
+      <div class="panel panel-success ">
+        <div class="panel-heading"style="height: 60px">
+            <h4 id="title" ><%= data.title%></h4>
+        </div>
+        <!-- panel body1 for time, location, category-->
+        <div class="panel-body " style="background-color: #f5f5f5; margin:0px; padding-left:12px;
+          padding-top:4px; padding-bottom:5px;" >
+          <div class="col-lg-2" id="time"  style="margin-left:-9px;"><%= data.posttime %></div>
+          <div class="col-lg-2" id="category"><%= data.category%></div>
+          <div class="col-lg-2" id="city"><%= data.city%></div>
+          <div class="col-lg-2" id="avgRate" >Rate: <%= data.avgrate%></div>
+ 
+        </div> <!-- end of panel body1-->
+
+        <!-- panel body2 forservice description -->
+        <div id="description" class="panel-body"><%= data.description%></div> <!-- end of panel body1-->
+        <!--panel body3 for contact-->
+          <!-- TODO -->
+          <% if(typeof(MemberInfo) != 'undefined') { %>
+          <div id="contact"class="panel-body " style="margin-top:-20px;" >
+             <label>Name: </label> <span id="name" style="margin-right:20px;margin-left:10px;"><%= data.fname%></span>
+             <label>Phone: </label> <span id="phone" style="margin-right:20px;"><%= data.phone%></span>
+             <label>Email: </label> <span id="email" style="margin-right:20px;"><%= data.email%></span>
+             <button type="button" class="btn btn-info" mid="<%= service_id %>">add to fav</button>
+          </div>
+          <% } %>
+          <%if(typeof(MemberInfo) == 'undefined') { %>
+          <div id="contact"class="panel-body text-center" style="margin-top:-20px;" >
+          <a href="/login"><button type="button" class="btn smgreen" href="/login">Sign In To Show Contact Info And Write Your Review</button></a>
+                   
+          </div>
+          <% } %>
+      </div><!-- end of panel body3-->
+    </div> <!--end of row4 -->
+
+    <div class="container col-lg-12">
+      <div class="panel panel-success">
+        <div class="panel-heading">
+          <h4>Review</h4>
+        </div>
+        <div class="panel-body">
+          <table class="table">
+            <thead class="warning">
+              <tr>
+                <th class="col-lg-2 text-center">
+                  Customer
+                </th>
+                <th class="col-lg-8 text-left">
+                  Review
+                </th>
+                <th class="col-lg-2 text-center">
+                  Rate
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+            <% for(var i = 0; i < reviews.length; i++) { %>
+              <tr>
+              
+                <td class="col-lg-2 text-center"><%= reviews[i].fname%></td>
+                <td class="col-lg-8 text-left"><%= reviews[i].comment%></td>
+                <td class="col-lg-2 text-center"><%= reviews[i].rate%></td>
+              
+              </tr>
+            <% } %>
+            </tbody>
+          </table>
+          <!--1. 没登录不显示   2. 写过了不显示-->
+          <button id="writeReview" type="button" class="btn smgreen col-md-2 col-md-offset-9"> Write Reviews</button>
+        </div>
+      </div>
+    </div>
+
+        <!-- row 5  write review-->
+    <div id="writePanel" class="container col-lg-12" >
+      <div class="panel panel-warning ">
+        <div class="panel-heading">
+            <h4 id="title" style="margin-top:0px; margin-bottom:0px;">Write Your Review
+            </h4>
+        </div>
+
+        <!-- panel body for rate and review -->
+        <div class="panel-body " style=" margin:0px; padding-left:12px; padding-top:4px; padding-bottom:5px;" >
+          <form class="form">
+              <div class="form-group" style="margin-top: 10px">
+                <label for="rate">Rate</label>
+                <select class="selectpicker col-md-2" id="rate" data-style="btn-success">
+                      <option>1</option>
+                      <option>2</option>
+                      <option>3</option>
+                      <option>4</option>
+                      <option>5</option>
+                </select>
+                <!--TODO-->
+                <!-- Stars for rate-->
+              </div>
+              <div class="form-group">
+                <label for="review">Review:</label>
+                <textarea id="review" class="form-control" rows="6" ></textarea>
+              </div>
+              <div class="text-center">
+              <% if(typeof(MemberInfo) != 'undefined') { %>
+                <button id="submitReview" uid="<%= MemberInfo.userId%>" sid="<%= data.service_id %>" type="button" class="btn smgreen text-center">Submit Your Rate And Review</button>
+              <% } else { %>
+                <a href="/login"><button type="button" class="btn smgreen text-center">Write After Login</button></a>
+              <% } %>
+              </div>
+          </form> <!--end of form -->
+        </div> <!-- end of panel body1-->
+      </div>
+    </div> <!--end of row5-->
+
+  </div> <!-- end container -->  
+
+
+
+</body>
+  <% include ../partials/footer.ejs %>
+</html>
+
+<script type="text/javascript">
+;jQuery(function ($) {
+  $('#writePanel').addClass('hidden');
+  $('#writeReview').on('click', function () {
+    $('#writePanel').removeClass('hidden');
+  });
+  $('#submitReview').on('click', function () {
+    var reviewData = {
+      user_id : $('#submitReview').attr('uid'),
+      service_id : $('#submitReview').attr('sid'),
+      comment : $('#review').val(),
+      rate : $('#rate option:selected').text()
+    };
+    console.log(reviewData)
+    $.post('/writereview', reviewData, function (res) {
+      if (res.result) {
+        alert("You've successfully review this service!");
+      } else {
+        alert("Error while creating review, please try again!");
+      }
+      window.location.reload();
+    })
+  });
+  $('.btn-info').on('click', function () {
+    var service_id = $(this).attr('mid');
+    $.post('/addFav', {service_id: service_id}, function (res) {
+      if (res.result) {
+        alert("You've successfully add this!");
+      } else {
+        alert("Error while adding service, please try again!");
+      }
+      window.location.reload();
+    })
+  })
+});
+</script>

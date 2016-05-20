@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<% include ../partials/header.ejs %>
+</head>
+<body>
+	<% include ../partials/nav.ejs %>
+	<div class="container">
+    <div id="signupbox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+      <div class="panel panel-info">
+        <div class="panel-heading">
+            <div class="panel-title">Sign Up</div>
+        </div>
+        <div class="panel-body" >
+          <div id="err_msg_block" class="alert alert-danger hidden" role="alert">
+            <button id="err_msg_close" type="button" class="close"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <p id="err_msg"></p>
+          </div>
+          <form id="signupform" class="form-horizontal" onsubmit="check()">
+            <div class="form-group">
+              <label class="col-md-3 control-label">First Name</label>
+              <div class="col-md-6">
+                <input type="text" class="form-control" name="firstName" required />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="col-md-3 control-label">Last Name</label>
+              <div class="col-md-6">
+                <input type="text" class="form-control" name="lastName" required/>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="col-md-3 control-label">Email address</label>
+              <div class="col-md-6">
+                <input type="email" class="form-control" name="email" required/>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="col-md-3 control-label">Password</label>
+              <div class="col-md-6">
+                <input id="inputPassword" type="password" class="form-control" name="password" required />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="col-md-3 control-label">Confrim Password</label>
+              <div class="col-md-6">
+                <input type="password" class="form-control" name="confirmPassword" required/>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="gender" class="col-md-3 control-label">Gender</label>
+
+              <div class="col-md-3 dropdown">
+                <select class="form-control" id="gender">
+                    <option>Male</option>
+                    <option>Female</option>
+                </select>
+              </div>
+            </div>
+
+            
+            <div class="form-group">
+              <div class="col-md-offset-3 col-md-8">
+                <button id="btnRegister" type="button" class="btn btn-primary">Sign Up</button>
+              </div>
+            </div>
+
+          </form>
+        </div>
+      </div>
+		</div> 
+	</div>
+
+	
+</body>
+<% include ../partials/footer.ejs %>
+</html>
+
+<script type="text/javascript">
+$(document).ready(function() {
+  $('#err_msg_close').click(function(){
+    $('#err_msg_block').addClass('hidden');
+  });
+
+  $('#btnRegister').on('click', function () {
+    var password = $('input[name=password]').val();
+    var confirmPassword = $('input[name=confirmPassword]').val();
+    var email = $('input[name=email]').val();
+    var firstName = $('input[name=firstName]').val();
+    var lastName = $('input[name=lastName]').val();
+    var gender = $( "#gender option:selected" ).text();
+
+    var data = {
+      fname : firstName,
+      lname: lastName,
+      email: email,
+      pwd: password,
+      confpwd: confirmPassword,
+      gender: gender
+    }
+
+    $.post('/register', data, function (res) {
+      $('#err_msg_block').addClass('hidden');
+      if (res.result) {
+        alert("You've signed up!");
+        window.location.href = '/';
+      } else {
+        $('#err_msg').empty().append(res.msg).parents('#err_msg_block').removeClass('hidden');
+      }
+    })
+  })
+});
+</script>

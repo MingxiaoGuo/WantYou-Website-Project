@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <% include ../partials/header.ejs %>
+</head>
+<body>
+  <% include ../partials/nav.ejs %>
+  	<div class="container col-md-offset-3" style="height:800px;margin-top: 50px;">
+
+	  <div class="row">
+	  <!--User Info Panel -->
+		  <div class="panel panel-default col-lg-8" style="padding-left: 0;padding-right:0;">
+		  	<div class="panel-heading clearfix">
+		  		<h3>Edit Request</h3>
+		  	</div>
+		  	
+		  	<div class="panel-body"  style="margin-top: 20px;">
+				  <form id="frmEditUser" role="form">
+				  	<!-- Required Information Panel-->
+				    <div class="panel panel-default col-lg-10 col-lg-offset-1 " style="padding-left: 0;padding-right:0;">
+					    <div class="panel-heading">
+						    Your Request
+					  	</div>
+					  	<div class="panel-body">
+					        <div class="form-group">
+					          <label for="inputtitle">Title</label>
+					          <input type="text" class="form-control" id="inputtitle" value="<%= data.title %>" />
+					        </div>
+
+					        <div class="form-group">
+					          <label for="inputdesc">Description</label>
+					          <textarea class="form-control" rows="4" id="inputdesc" placeholder="Description"><%= data.description %></textarea>
+					        </div>
+
+					        <div class="form-group">
+					          <label for="inputcity">City</label>
+					          <input type="text" class="form-control" id="inputcity" value="<%= data.city %>" disabled/>
+					        </div>
+
+					        <div class="form-group">
+					          <label for="inputstate">State</label>
+					          <input type="text" class="form-control" id="inputstate" value="<%= data.state %>" disabled/>
+					        </div>
+
+					        <div class="form-group">
+					          <label for="inputtime">Time</label>
+					          <input type="text" class="form-control" id="inputtime" value="<%= data.time %>"  disabled/>
+					        </div>
+
+					        <div class="form-group">
+					          <label for="inputcategory">Category</label>
+					          <input type="text" class="form-control" id="inputcategory" value="<%= data.category_name %>" disabled/>
+					        </div>
+						</div>
+				    </div>
+				    <!--End Required Information Panel-->
+
+				  </form>
+		  	</div>		 
+	      	<button id="btnEdit" mid="<%= data.request_id %>" type="button" class="btn btn-lg btn-success" style="margin-left: 45%; margin-bottom: 20px; margin-top: 0px;" >Submit</button>
+		  </div>
+		  <!--End User Info Panel -->	
+	  </div>
+
+	</div>
+
+</body>
+  <% include ../partials/footer.ejs %>
+</html>
+<script type="text/javascript">
+;jQuery(function ($) {
+	$('#btnEdit').on('click', function () {
+		var data = {
+			request_id:$(this).attr('mid'),
+			title:$('#inputtitle').val(),
+			description:$('#inputdesc').val(),
+		};
+		$.post('/edit_req', data, function (res) {
+			if (res.result) {
+				alert("Update done!");
+				window.location.reload();
+			} else {
+				alert("Update done!");
+			}
+		});
+	});
+});
+</script>

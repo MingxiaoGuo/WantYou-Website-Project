@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<% include ../partials/header.ejs %>
+</head>
+<body>
+	<% include ../partials/nav.ejs %>
+  
+  <div class="container col-md-offset-2" style="height:800px;margin-top: 50px;">
+
+    <div class="row">
+    <!--User Info Panel -->
+      <div class="panel panel-success col-lg-8 col-lg-offset-2" style="padding-left: 0;padding-right:0;margin-bottom: 50px;">
+        <div class="panel-heading clearfix">
+          <h3>Edit User</h3>
+        </div>
+        <!-- Error Message Block -->
+        <div id="err_msg_block" class="alert alert-danger hidden" role="alert">
+          <button id="err_msg_close" type="button" class="close"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+          <p id="err_msg"></p>
+        </div>
+        <!-- End Error Message Block -->
+        <div class="panel-body"  style="margin-top: 20px;">
+          <form id="frmEditUser" role="form">
+            <!-- Required Information Panel-->
+            <div class="panel panel-default col-lg-5 " style="margin-left: 40px;padding-left: 0;padding-right:0;">
+              <div class="panel-heading">
+                Basic Required Information
+              </div>
+              <div class="panel-body">
+                <div class="form-group">
+                  <label for="inputfname">First Name</label>
+                  <input type="text" class="form-control" id="inputfname" value="<%= data.fname %>" />
+                </div>
+
+                <div class="form-group">
+                  <label for="inputlname">Last Name</label>
+                  <input type="text" class="form-control" id="inputlname" value="<%= data.lname %>" />
+                </div>
+
+                <div class="form-group">
+                  <label for="inputEmail">Email</label>
+                  <input type="text" class="form-control" id="inputEmail" value="<%= data.email %>" disabled/>
+                </div>
+
+                <div class="form-group">
+                  <label for="selectgender" class="control-label">Gender</label>
+
+                  <div class="dropdown">
+                    <select class="selectpicker" id="selectgender">
+                      <% if( data.gender == 'Male') { %>
+                        <option selected>Male</option>
+                        <option>Female</option>
+                      <% } else { %>
+                        <option>Male</option>
+                        <option selected>Female</option>
+                      <% } %>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="inputphone">Phone</label>
+                  <input type="text" class="form-control" id="inputphone" value="<%= data.phone %>"/>
+                </div>
+
+              </div>
+            </div>
+            <!--End Required Information Panel-->
+
+            <!--Optional Information Panel-->
+            <div class="panel panel-default col-lg-5" style="margin-left: 50px;padding-left: 0;padding-right:0;">
+              <div class="panel-heading">
+                Optional Information
+              </div>
+              <div class="panel-body">
+                <div class="form-group">
+                  <label for="inputbday">Birthday</label>
+                  <input type="text" class="form-control" id="inputbday" placeholder='YYYY-MM-DD' value="<%= data.birthday %>"/>
+                </div>
+
+                <div class="form-group">
+                  <label for="inputstreet">Street</label>
+                  <input type="text" class="form-control" id="inputstreet" value="<%= data.street %>"/>
+                </div>
+
+              <div class="form-group">
+                  <label for="city" class="control-label">City</label>
+
+                  <div class="dropdown">
+                      <select class="selectpicker" id="city">
+                          <option>San Francisco</option>
+                          <option>Los Angeles</option>
+                          <option>Seattle</option>
+                          <option>New York</option>
+                      </select>
+                  </div>
+              </div>
+
+              <div class="form-group">
+                  <label for="state" class="control-label">State</label>
+
+                  <div class="dropdown">
+                      <select class="selectpicker" id="state" name="state">
+                          <option>California</option>
+                          <option>Washington</option>
+                          <option>New York</option>
+                      </select>
+                  </div>
+              </div>
+
+                <div class="form-group">
+                  <label for="inputzcode">Zip Code</label>
+                  <input type="text" class="form-control" id="inputzcode" value="<%= data.zip_code %>"/>
+                </div>          
+              </div>
+            </div>  
+            <!--End Optional Information Panel-->
+          </form>
+        </div>    
+        <!--Panel body for password -->
+        <div id="pwdPanel" class="panel panel-danger col-md-10 col-md-offset-1 hidden" style="padding-left: 0;padding-right:0;">  
+          <div class="panel-heading">
+            Password
+          </div> 
+          <div class="panel-body">
+            <div class="row">
+              <div class="form-group col-md-6 ">
+                <label for="inputpwd">New Password</label>
+                <input type="password" class="form-control" id="inputpwd"/>              
+              </div>
+              <div class="form-group col-md-6 ">
+                <label for="inputconfpwd">Confirm New Password</label>
+                <input type="password" class="form-control" id="inputconfpwd"/>         
+              </div>
+            </div>             
+          </div>
+
+        </div>  
+        <div class="form-group">
+          <div class="col-md-12 text-center" style="margin-bottom: 30px;">
+            <button id="alterPwd" class="btn btn-lg btn-danger">Change Password</button>
+            <button id="restorePwd" class="btn btn-lg btn-danger hidden">Restore Password</button>
+            <button id="btnUpdate" mid="<%= data.user_id %>" type="button" class="btn btn-lg btn-success col-log-3">Submit Changes</button>
+            <a href="/manage_serv_req" type="button" class="btn btn-lg btn-success ">Manage Service and Request</a>
+            <a href="/logout" type="button" class="btn btn-lg btn-warning">Logout</a>
+          </div>
+        </div>
+
+
+      </div>
+      <!--End User Info Panel --> 
+    </div>
+
+  </div>
+
+	<% include ../partials/footer.ejs %>
+</body>
+</html>
+
+<script type="text/javascript">
+
+        
+$(document).ready(function() {
+  $('#err_msg_close').click(function(){
+    $('#err_msg_block').addClass('hidden');
+  });
+
+  $('#alterPwd').on('click', function () {
+    $('#pwdPanel').removeClass('hidden');
+    $('#restorePwd').removeClass('hidden');
+    $(this).addClass('hidden');
+  });
+
+  $('#restorePwd').on('click', function () {
+    $('#pwdPanel').addClass('hidden');
+    $('#alterPwd').removeClass('hidden');
+    $(this).addClass('hidden');
+    // reset the input box
+    $('#inputpwd').val('');
+    $('#inputconfpwd').val('');
+  });
+
+
+
+  $('#btnUpdate').on('click', function () {
+    var pwd = $('#inputpwd').val();
+    var confpwd = $('#inputconfpwd').val();
+
+    var bday = $('#inputbday').val();
+    var phone = $('#inputphone').val();
+    var street = $('#inputstreet').val();
+    var zip_code = $('#inputzcode').val();
+    var firstName = $('#inputfname').val();
+    var lastName = $('#inputlname').val();
+    var gender = $('#selectgender option:selected').text();
+    var city = $( "#city option:selected" ).text();
+    var state = $( "#state option:selected" ).text();
+
+    var data = {
+      fname : firstName,
+      lname: lastName,
+      birthday: bday,
+      phone: phone,
+      street: street,
+      city: city,
+      state: state,
+      zip_code: zip_code,
+      gender: gender
+
+    }
+
+    if (pwd != '') {
+      data.pwd = pwd;
+    }
+
+    console.log(data)
+
+    if (pwd != '' && confpwd != '') {
+      if (pwd != confpwd) {
+        alert("Password don't match!");
+        return;
+      }
+    }
+
+    console.log('after check')
+
+    $.post('/updateProfile', data, function (res) {
+      $('#err_msg_block').addClass('hidden');
+      if (res.result) {
+        alert("Your profile is updated!");
+        window.location.reload();
+      } else {
+        alert('res.msg')
+      }
+    });
+  });
+
+});
+</script>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<% include ../partials/header.ejs %>
+</head>
+<body>
+	<% include ../partials/nav.ejs %>
+
+	<div class="container col-md-offset-3" style="height:800px;margin-top: 50px;">
+
+	  <div class="row">
+	  <!--User Info Panel -->
+		  <div class="panel panel-default col-lg-9" style="padding-left: 0;padding-right:0;">
+		  	<div class="panel-heading clearfix">
+		  		<h3>Edit User</h3>
+		  	</div>
+		  	
+		  	<div class="panel-body"  style="margin-top: 20px;">
+				  <form id="frmEditUser" role="form">
+				  	<!-- Required Information Panel-->
+				    <div class="panel panel-default col-lg-5" style="margin-left: 40px;padding-left: 0;padding-right:0;">
+					    <div class="panel-heading">
+						    Basic Required Information
+						  </div>
+						  <div class="panel-body">
+				        <div class="form-group">
+				          <label for="inputfname">First Name</label>
+				          <input type="text" class="form-control" id="inputfname" value="<%= data.fname %>" />
+				        </div>
+
+				        <div class="form-group">
+				          <label for="inputlname">Last Name</label>
+				          <input type="text" class="form-control" id="inputlname" value="<%= data.lname %>" />
+				        </div>
+
+				        <div class="form-group">
+				          <label for="inputEmail">Email</label>
+				          <input type="text" class="form-control" id="inputEmail" value="<%= data.email %>" disabled/>
+				        </div>
+
+				        <div class="form-group">
+				          <label for="inputgender">Gender</label>
+				          <input type="text" class="form-control" id="inputgender" value="<%= data.gender %>"/>
+				        </div>
+
+				        <div class="form-group">
+				          <label for="inputphone">Phone</label>
+				          <input type="text" class="form-control" id="inputphone" value="<%= data.phone %>"/>
+				        </div>
+
+						  </div>
+				    </div>
+				    <!--End Required Information Panel-->
+				    <!--Optional Information Panel-->
+				    <div class="panel panel-default col-lg-5" style="margin-left: 50px;padding-left: 0;padding-right:0;">
+				    	<div class="panel-heading">
+				    		Optional Information
+				    	</div>
+				    	<div class="panel-body">
+				        <div class="form-group">
+				          <label for="inputbday">Birthday</label>
+				          <input type="text" class="form-control" id="inputbday" value="<%= data.birthday %>"/>
+				        </div>
+
+				        <div class="form-group">
+				          <label for="inputstreet">Street</label>
+				          <input type="text" class="form-control" id="inputstreet" value="<%= data.street %>"/>
+				        </div>
+
+				        <div class="form-group">
+				          <label for="inputcity">City</label>
+				          <input type="text" class="form-control" id="inputcity" value="<%= data.city %>"/>
+				        </div>
+
+				        <div class="form-group">
+				          <label for="inputstate">State</label>
+				          <input type="text" class="form-control" id="inputstate" value="<%= data.city %>"/>
+				        </div>
+
+				        <div class="form-group">
+				          <label for="inputzcode">Zip Code</label>
+				          <input type="text" class="form-control" id="inputzcode" value="<%= data.zip_code %>"/>
+				        </div>	    		
+				    	</div>
+				    </div>	
+						<!--End Optional Information Panel-->
+				  </form>
+		  	</div>		
+		  	<!--Panel body for password -->
+		  	<div class="panel panel-default col-lg-5" style="margin-left: 40px;padding-left: 0;padding-right:0;">	 
+		  		<div class="panel-heading">
+		  			<h3>Password</h3>
+		  		</div> 
+		  		<div class="panel-body">
+		        
+		          <label for="inputpwd">New Password</label>
+		          <input type="text" class="form-control" id="inputpwd"/>
+		        
+		        
+		          <label for="inputconfpwd">Confirm New Password</label>
+		          <input type="text" class="form-control" id="inputconfpwd"/>
+		        		  			
+		  		</div>
+
+		  	</div>  
+	      <button id="btnEdit" mid="<%= data.user_id %>" type="button" class="btn btn-lg btn-success" style="margin-left: 45%; margin-bottom: 20px; margin-top: 0px;" >Submit</button>
+		  </div>
+		  <!--End User Info Panel -->	
+	  </div>
+
+	</div>
+
+
+</body>
+	<% include ../partials/footer.ejs %>
+</html>
+<script type="text/javascript">
+;jQuery(function ($) {
+  $('#btnEdit').on('click', function () {
+    var data = {
+    	user_id : $(this).attr('mid'),
+			fname: $('#inputfname').val(),
+			lname:$('#inputlname').val(),
+			email:$('#inputemail').val(),
+			gender:$('#inputgender').val(),
+			birthday:$('#inputbirthday').val(),
+			phone:$('#inputphone').val(),
+			street:$('#inputstreet').val(),
+			city:$('#inputcity').val(),
+			state:$('#inputstate').val(),
+			zip_code:$('#inputzcode').val(),
+    }
+    console.log(data)
+    $.post('/edituser', data, function (res) {
+    	if (res.result) {
+    		alert("Update done!");
+    		window.location.href = '/admin';
+    	} else {
+    		alert("Update fail!")
+    		window.location.reload();
+    	}
+    })
+  });
+});
+</script>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <% include ../partials/header.ejs %>
+</head>
+
+<body>
+  <% include ../partials/nav.ejs %>
+  <div class="container">   
+    <!-- row 2  big background pic-->
+    <div class="jumbotron bg-img">
+      </br> </br>
+      <h2 style="color:#ffffff;">Join the largest community of sharing services. </h2> </br>
+      <p style="color:#ffffff;"> Not only look for serviecs, but also provide services</p>
+      </br></br></br></br>
+      <p><a href="/login"><button type="button" class="btn green">&nbsp Start Now For Free >> </button></a></p>
+    </div>
+
+    <!-- row 3  for Location-->
+    <div class="row row-index" >
+      <div class="col-lg-3 col-md-6 col-sm-8">
+          <div class="thumbnail">
+            <img src="images/sf.jpg">
+            <div class="caption">
+              <button class="btn btn-primary center-block" style= "background-color: #1abc9c; width:100%">San Francisco</button>
+            </div>
+          </div>
+      </div>
+
+      <div class="col-lg-3 col-md-6 col-sm-8">
+          <div class="thumbnail">
+            <img src="images/la.jpg">
+            <div class="caption">
+              <button class="btn btn-primary center-block" style= "background-color: #1abc9c; width:100%">Los Angeles</button>
+            </div>
+          </div>
+      </div>
+
+      <div class="col-lg-3 col-md-6 col-sm-8">
+          <div class="thumbnail">
+            <img src="images/seattle.jpg">
+            <div class="caption">
+              <button class="btn btn-primary center-block" style= "background-color: #1abc9c; width:100%">Seattle</button>
+            </div>
+          </div>
+      </div>
+
+      <div class="col-lg-3 col-md-6 col-sm-8">
+          <div class="thumbnail">
+            <img src="images/nyc.jpg">
+            <div class="caption">
+              <button class="btn btn-primary center-block" style= "background-color: #1abc9c; width:100%">New York</button>
+            </div>
+          </div>
+      </div>
+    </div>  <!-- end of row3  -->
+
+    <!-- row 4  for Category-->
+  </div> <!-- end container -->  
+
+
+  
+</body>
+<% include ../partials/footer.ejs %>
+</html>
+<script type="text/javascript">
+;jQuery(function ($) {
+  $('.btn').on('click', function () {
+    var city = $(this).text();
+    window.location.href = '/serReqList/' + city;
+  });
+});
+</script>

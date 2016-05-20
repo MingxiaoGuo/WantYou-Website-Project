@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <% include ../partials/header.ejs %>
+</head>
+
+<body>
+  <% include ../partials/nav.ejs %>
+  <div class="container"  >   
+    <!-- row 1  tab-->
+    <div class="row" >
+        <!-- tab -->
+        <div class="col-lg-12" style="margin-top:15px; margin-left:10px;">
+            <ul class="nav nav-tabs nav-justified">
+                <li class="active"><a data-toggle="tab" href="#user">Users</a></li>
+                <li><a data-toggle="tab" href="#service">Services</a></li>
+                <li><a data-toggle="tab" href="#request">Requests</a></li>
+            </ul>
+            <div class="tab-content">
+                <!-- tab for Users -->
+                <div id="user" class="tab-pane fade in active">
+                  <table class="table table-striped" style="margin-bottom: 0px;">
+                        <thead>
+                          <tr>
+                              <div class="col-lg-8">
+                                  <th >First Name</th>
+                                  <th >Last Name</th>
+                                  <th >Email</th>
+                                  <th >Gender</th>
+                                  <th >Birthday</th>
+                                  <th >Phone</th>
+                                  <th >Street</th>
+                                  <th >City</th>
+                                  <th >State</th>
+                                  <th >Zip Code</th>
+                              </div>             
+                          </tr>
+                        </thead>  
+                        <tbody>
+                          <% for(var i = 0; i < userData.length; i++) { %>
+                              <tr>
+                                <td ><%= userData[i].fname %></td>
+                                <td ><%= userData[i].lname %></td>
+                                <td ><%= userData[i].email %></td>
+                                <td ><%= userData[i].gender %></td>
+                                <td ><%= userData[i].birthday %></td>
+                                <td ><%= userData[i].phone %></td>
+                                <td ><%= userData[i].street  %></td>
+                                <td ><%= userData[i].city  %></td>
+                                <td ><%= userData[i].state  %></td>
+                                <td ><%= userData[i].zip_code %></td>
+                                <td class="text-right">
+                                    <button type="button" uid="<%= userData[i].user_id%>" class="btn sm editUser"> Edit</button>
+                                </td>
+                                <td >
+                                    <button type="button" uid="<%= userData[i].user_id%>" class="btn sm removeUser"> Delete</button>
+                                </td>
+                              </tr>
+                          <% } %>
+                        </tbody>
+                  </table>
+                </div> <!-- end of tab drink-->
+
+                <div id="service" class="tab-pane fade">
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th>title</th>
+                          <th>description</th>
+                          <th>city</th>
+                          <th>user_id</th>
+                          <th>time</th>
+                          <th>category_id</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      <% for( var i = 0; i < servData.length; i++ ) { %>
+                        <tr>
+                          <td ><%= servData[i].title %></td>
+                          <td ><%= servData[i].description %></td>
+                          <td ><%= servData[i].city %></td>
+                          <td ><%= servData[i].user_id  %></td>
+                          <td ><%= servData[i].time  %></td>
+                          <td ><%= servData[i].category_id  %></td>
+                          <td class="text-right">
+                            <button type="button" sid="<%= servData[i].service_id%>" class="btn sm editService"> Edit</button>
+                          </td>
+                          <td >
+                            <button type="button" sid="<%= servData[i].service_id%>" class="btn sm removeService"> Delete</button>
+                          </td>
+                        </tr>
+                      <% } %>
+                      </tbody>
+                    </table>
+                </div>
+
+                <div id="request" class="tab-pane fade">
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th>title</th>
+                          <th>description</th>
+                          <th>city</th>
+                          <th>user_id</th>
+                          <th>time</th>
+                          <th>category_id</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      <% for( var i = 0; i < requestData.length; i++ ) { %>
+                        <tr>
+                          <td ><%= requestData[i].title %></td>
+                          <td ><%= requestData[i].description %></td>
+                          <td ><%= requestData[i].city %></td>
+                          <td ><%= requestData[i].user_id  %></td>
+                          <td ><%= requestData[i].time  %></td>
+                          <td ><%= requestData[i].category_id  %></td>
+                          <td class="text-right">
+                            <button type="button" rid="<%= requestData[i].request_id%>" class="btn sm editRequest"> Edit</button>
+                          </td>
+                          <td >
+                            <button type="button" rid="<%= requestData[i].request_id%>" class="btn sm removeRequest"> Delete</button>
+                          </td>
+                        </tr>
+                      <% } %>
+                      </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>  <!-- end of left side of menu tab -->
+    </div> <!-- end of row 1 -->
+    <!-- row 2  tab-->
+    <div class="row" >
+        <!-- tab -->
+        <div class="col-lg-7" style="margin-top:15px; margin-left:10px;">
+            <ul class="nav nav-tabs nav-justified">
+                <li class="active"><a data-toggle="tab" href="#tag">Tag</a></li>
+                <li><a data-toggle="tab" href="#category">Category</a></li>
+            </ul>
+            <div class="tab-content">
+                <!-- tab for Users -->
+                <div id="tag" class="tab-pane fade in active">
+                  <table class="table table-striped" style="margin-bottom: 0px;">
+                        <thead>
+                          <tr>
+                              <div class="col-lg-8">
+                                  <th class="text-center" >Tag Name</th>
+                              </div>             
+                          </tr>
+                        </thead>  
+                        <tbody>
+                          <% for(var i = 0; i < tagData.length; i++) { %>
+                              <tr>
+                                <td class="text-center"><%= tagData[i].tag_name %></td>
+                                <td></td>
+                                <td class="text-center">
+                                    <button type="button" tname="<%= tagData[i].tag_name%>" class="btn sm removeTag"> Delete</button>
+                                </td>
+                              </tr>
+                          <% } %>
+                        </tbody>
+                  </table>
+                </div> <!-- end of tab drink-->
+
+                <div id="category" class="tab-pane fade">
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th>Category Name</th>
+                          <th>Description</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      <% for( var i = 0; i < cateData.length; i++ ) { %>
+                        <tr>
+                          <td ><%= cateData[i].category_name %></td>
+                          <td ><%= cateData[i].description %></td>
+                          <td class="text-center">
+                            <button type="button" cid="<%= cateData[i].category_id%>" class="btn sm removeCategory"> Delete</button>
+                          </td>
+                        </tr>
+                      <% } %>
+                      </tbody>
+                    </table>
+                </div>
+
+                <div id="request" class="tab-pane fade">
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th>title</th>
+                          <th>description</th>
+                          <th>city</th>
+                          <th>user_id</th>
+                          <th>time</th>
+                          <th>category_id</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      <% for( var i = 0; i < requestData.length; i++ ) { %>
+                        <tr>
+                          <td ><%= requestData[i].title %></td>
+                          <td ><%= requestData[i].description %></td>
+                          <td ><%= requestData[i].city %></td>
+                          <td ><%= requestData[i].user_id  %></td>
+                          <td ><%= requestData[i].time  %></td>
+                          <td ><%= requestData[i].category_id  %></td>
+                          <td class="text-right">
+                            <button type="button" rid="<%= requestData[i].request_id%>" class="btn sm editRequest"> Edit</button>
+                          </td>
+                          <td >
+                            <button type="button" rid="<%= requestData[i].request_id%>" class="btn sm removeRequest"> Delete</button>
+                          </td>
+                        </tr>
+                      <% } %>
+                      </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>  <!-- end of left side of menu tab -->
+
+        <div class="col-lg-4" style="margin-top:15px; margin-left:60px;">
+            <ul class="nav nav-tabs nav-justified">
+                <li class="active"><a data-toggle="tab" href="#createtag">Create Tag</a></li>
+                <li><a data-toggle="tab" href="#createcategory">Create Category</a></li>
+            </ul>
+            <div class="tab-content">
+                <!-- tab for Users -->
+                <div id="createtag" class="tab-pane fade in active">
+                  <form id="createtagform" class="form-horizontal">
+                    <div class="form-group">
+                      <label for="tagname" class="col-md-5 control-label">Tag Name</label>
+                      <div class="col-md-6">
+                        <input type="text" class="form-control" id="tagname" required />
+                      </div>
+                    </div>
+
+                    
+                    <div class="form-group">
+                      <div class="col-md-offset-4 col-md-8">
+                        <button id="btncreatetag" type="button" class="btn btn-success">Create</button>
+                      </div>
+                    </div>
+
+                  </form>
+                </div> <!-- end of tab drink-->
+
+                <div id="createcategory" class="tab-pane fade">
+                  <form id="createcategoryform" class="form-horizontal">
+                    <div class="form-group">
+                      <label for="catename" class="col-md-5 control-label">Category Name</label>
+                      <div class="col-md-6">
+                        <input type="text" class="form-control" id="catename" required />
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="cdescription" class="col-md-5 control-label">Description</label>
+                      <div class="col-md-6">
+                        <input type="text" class="form-control" id="cdescription" required />
+                      </div>
+                    </div>
+                    
+                    <div class="form-group">
+                      <div class="col-md-offset-4 col-md-8">
+                        <button id="btncreatecategory" type="button" class="btn btn-success">Create</button>
+                      </div>
+                    </div>
+
+                  </form>
+                </div>
+
+                <div id="request" class="tab-pane fade">
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th>title</th>
+                          <th>description</th>
+                          <th>city</th>
+                          <th>user_id</th>
+                          <th>time</th>
+                          <th>category_id</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      <% for( var i = 0; i < requestData.length; i++ ) { %>
+                        <tr>
+                          <td ><%= requestData[i].title %></td>
+                          <td ><%= requestData[i].description %></td>
+                          <td ><%= requestData[i].city %></td>
+                          <td ><%= requestData[i].user_id  %></td>
+                          <td ><%= requestData[i].time  %></td>
+                          <td ><%= requestData[i].category_id  %></td>
+                          <td class="text-right">
+                            <button type="button" rid="<%= requestData[i].request_id%>" class="btn sm editRequest"> Edit</button>
+                          </td>
+                          <td >
+                            <button type="button" rid="<%= requestData[i].request_id%>" class="btn sm removeRequest"> Delete</button>
+                          </td>
+                        </tr>
+                      <% } %>
+                      </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>  <!-- end of left side of menu tab -->
+
+        <div>
+          <a href="/logout" type="button" class="btn btn-lg btn-warning col-lg-offset-2" style="margin-top: 50px;">Logout</a>
+        </div>
+    </div> <!-- end of row 1 -->
+    <!-- end of row 1 -->
+  </div> <!-- end container -->  
+
+
+
+</body>
+  <% include ../partials/footer.ejs %>
+</html>
+
+<script type="text/javascript">
+;jQuery(function ($) {
+
+
+  $('.editUser').on('click', function () {
+    window.location.href = '/edituser/' + $(this).attr('uid');
+  });
+
+  $('.editService').on('click', function () {
+    window.location.href = '/edit_serv/' + $(this).attr('sid');
+  });
+
+  $('.editRequest').on('click', function () {
+    window.location.href = '/edit_req/' + $(this).attr('rid');
+  });
+
+  $('.removeUser').on('click', function () {
+    if (confirm('Are you sure you want to delete this user?')) {
+      //alert($(this).attr('uid'));
+      $.post('/removeuser', {user_id: $(this).attr('uid')}, function (res) {
+        if (res.result) {
+          alert(res.msg);
+          window.location.reload();
+        } else {
+          alert("Delete Fail!");
+        }
+      });
+    } else {
+      // Do nothing
+    }
+  });
+
+  $('.removeService').on('click', function () {
+    if (confirm('Are you sure you want to delete this service?')) {
+      //alert($(this).attr('uid'));
+      $.post('/remove_serv_req', {id: $(this).attr('sid'), type:'service'}, function (res) {
+        if (res.result) {
+          alert(res.msg);
+          window.location.reload();
+        } else {
+          alert(res.msg);
+        }
+      });
+    } else {
+      // Do nothing
+    }
+  });
+
+  $('.removeRequest').on('click', function () {
+    if (confirm('Are you sure you want to delete this request?')) {
+      //alert($(this).attr('uid'));
+      $.post('/remove_serv_req', {id: $(this).attr('rid')}, function (res) {
+        if (res.result) {
+          alert(res.msg);
+          window.location.reload();
+        } else {
+          alert(res.msg);
+        }
+      });
+    } else {
+      // Do nothing
+    }
+  });
+
+  $('.removeTag').on('click', function () {
+    if (confirm('Are you sure you want to delete this tag?')) {
+      //console.log($(this).attr('tname'));
+      $.post('/removetag', {id: $(this).attr('tname')}, function (res) {
+        if (res.result) {
+          alert(res.msg);
+          window.location.reload();
+        } else {
+          alert("Delete Fail!");
+        }
+      });
+    } else {
+      // Do nothing
+    }
+  });
+
+  $('.removeCategory').on('click', function () {
+    if (confirm('Are you sure you want to delete this category?')) {
+      console.log($(this).attr('cid'));
+      $.post('/removecategory', {category_id: $(this).attr('cid')}, function (res) {
+        if (res.result) {
+          alert(res.msg);
+          window.location.reload();
+        } else {
+          alert("Delete Fail!");
+        }
+      });
+    } else {
+      // Do nothing
+    }
+  });
+
+  $('#btncreatecategory').on('click', function () {
+    if ($('#catename').val() == '' || $('#catename').val() == null) {
+      alert('Please enter category name!');
+      return;
+    } else {
+      var data = {
+        category_name : $('#catename').val(),
+        description : $('#cdescription').val()
+      }
+      $.post('/createcategory', data, function (res) {
+        if (res.result) {
+          alert(res.msg);
+          window.location.reload();
+        } else {
+          alert(res.msg);
+        }
+      });
+    }
+  });
+
+  $('#btncreatetag').on('click', function () {
+    if ($('#tagname').val() == '' || $('#tagname').val() == null) {
+      alert('Please enter tag name!');
+      return;
+    } else {
+      $.post('/createtag', {tag_name : $('#tagname').val()}, function (res) {
+        if (res.result) {
+          alert(res.msg);
+          window.location.reload();
+        } else {
+          alert(res.msg);
+        }
+      });
+    }
+  });
+});
+
+</script>

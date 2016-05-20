@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <% include ../partials/header.ejs %>
+</head>
+
+<body>
+  <% include ../partials/nav.ejs %>
+  <div class="container"  >   
+    <!-- row 2  big background pic-->
+    <div class="row" >
+      <div class="jumbotron sharing-bg-img" >
+      <div class="row">
+        </br></br></br></br></br>
+        <div class="col-xs-8 col-sm-8">
+        </div>
+        <div class="col-xs-4 col-sm-2 col-sm-offset-8" style="margin-top:35px;">
+          <a href="/service_create"><button id="createService" type="button" class="btn lggreen">Create Service</button></a>
+        </div>
+        <div class="col-xs-4 col-sm-1" style="margin-top:35px;">
+          <a href="/request_create"><button type="button" style="margin-right: 0px;" class="btn lggreen">Create Request</button></a>
+        </div>
+      </div>
+
+      </div>
+    </div>
+
+    <!-- row 4  side navbar with service and request list-->
+    <div class= "row" style="margin-top: 50px;" name="ServiceRequest">
+
+      <aside class="col-lg-2" style="border-right: 1px solid #E4E4E4;margin-left:20px;">  <!-- side navbar -->
+        <!-- TODO -->
+        </br>
+        <ul class="side-navbar nav nav-pills nav-stacked" >
+          <li class="active"><a id="serviceList">Services </a></li>
+          </br>
+          <li style="font-weight: bold;"><a id="requestList">Requests </a></li>          
+        </ul> 
+      </aside>
+
+      <div id="service_list" class="container col-lg-9 " style= "margin-left:20px; margin-top: -40px">
+        <div id="location" class="row " name = "location" >
+              <br>
+          <h3><%= city %></h4>
+        </div>
+
+         <!--  Query Service List-->
+        <table class="table table-striped" style= "margin-left:-20px; ">
+            <thead>
+              <tr>
+                <th class="col-lg-2">Date</th>
+                <th class="col-lg-2">Category</th>
+                <th class="col-lg-8">Title</th>
+              </tr>
+            </thead>
+
+            <tbody>           
+           <% for(var i = 0; i < data.length; i++) { %>   
+              <tr>
+                <td ><%= data[i].time %></td>
+                <td ><%= data[i].category_name %></td>
+                <td ><a href="/serDetail/<%= data[i].service_id %>"><%= data[i].title %></a></td>
+              </tr>
+            <% } %>
+            </tbody>
+        </table>
+      </div>
+
+      <div id="req_list" class="container col-lg-9 hidden" style= "margin-left:20px; margin-top: -40px">
+        <div id="location" class="row " name = "location" >
+              <br>
+          <h3><%= city %></h4>
+        </div>
+
+        <table class="table table-striped" style= "margin-left:-20px; ">
+            <thead>
+              <tr>
+                <th class="col-lg-2">Date</th>
+                <th class="col-lg-2">Category</th>
+                <th class="col-lg-8">Title</th>
+              </tr>
+            </thead>
+
+            <tbody>           
+            <% for(var i = 0; i < reqs.length; i++) { %>   
+              <tr>
+                <td ><%= reqs[i].time %></td>
+                <td ><%= reqs[i].category_name %></td>
+                <td ><a href="/reqDetail/<%= reqs[i].request_id %>"><%= reqs[i].title %></a></td>
+              </tr>
+            <% } %>
+            </tbody>
+        </table>
+      </div>
+    </div> <!--end of row4 -->
+
+
+  </div> <!-- end container -->  
+
+
+
+</body>
+  <% include ../partials/footer.ejs %>
+</html>
+
+<script type="text/javascript">
+;jQuery(function ($) {
+  $('#serviceList').on('click', function () {
+    $('#req_list').addClass('hidden');
+    $('#service_list').removeClass('hidden');
+    $(this).parents().addClass('active');
+    $('#requestList').parents().removeClass('active');
+  });
+
+  $('#requestList').on('click', function () {
+    $('#req_list').removeClass('hidden');
+    $('#service_list').addClass('hidden');   
+    $(this).parents().addClass('active');
+    $('#serviceList').parents().removeClass('active');
+  })
+});
+
+</script>

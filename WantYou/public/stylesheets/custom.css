@@ -1,0 +1,150 @@
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+}
+
+button.green-Sign {
+  background-color: #1abc9c;  
+  box-shadow: inset 0 1px 0 0 #48b9c7;
+	color: #fff;
+	border:2px solid #1abc9c;
+	text-shadow: 1px 1px 1px #000;
+	font-size:16px;
+	margin-top: 25px;
+	margin-left: 20px;
+
+	padding: 5px 16px;
+	min-width: 85px;
+}
+
+button.green {
+  background-color: #1abc9c;  
+  box-shadow: inset 0 1px 0 0 #48b9c7;
+	color: #fff;
+	border:2px solid #1abc9c;
+	text-shadow: 1px 1px 1px #000;	
+	font-size:17px;
+	padding: 5px 5px;
+	min-width: 90px;
+}
+
+button.navleft {
+  background-color: #1aa7bc;  
+  color: #fff;
+}
+
+button.lggreen {
+    background-color: #1abc9c;  
+    box-shadow: inset 0 1px 0 0 #48b9c7;
+    color: #fff;
+    border:2px solid #1abc9c;
+    text-shadow: 1px 1px 1px #000;  
+    font-size:18px;
+    padding: 5px 5px;
+    min-width: 160px;
+}
+
+button.smgreen {
+    background-color: #1abc9c;  
+    box-shadow: inset 0 1px 0 0 #48b9c7;
+    color: #fff;
+    border:1px solid #1abc9c;
+    text-shadow: 0.3px 0.3px 0.3px #000;  
+    font-size:14px;
+    padding: 5px 5px;
+
+}
+
+button.sm {
+    background-color: #1abc9c;  
+    box-shadow: inset 0 1px 0 0 #48b9c7;
+    color: #fff;
+    border:0.5px solid #1abc9c;
+    text-shadow: 0.3px 0.3px 0.3px #000;  
+    font-size:13px;
+    padding: 3px 3px;
+    min-width: 70px;
+}
+
+button.inboxgreen {
+  margin-top: 13%; 
+  margin-left: 65%;
+  background-color: #1abc9c;
+  border-style: ridge ;
+  box-shadow: inset 0 1px 0 0 #48b9c7;
+  color: #fff;
+  border:2px solid #1abc9c;
+  text-shadow: 1px 1px 1px #000;  
+  font-size:16px;
+  padding: 5px 5px;
+  min-width: 80px;
+}
+
+.jumbotron {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    overflow: hidden;
+    background-color: transparent;
+    margin-bottom: -50px;
+}
+
+.navbar {
+   background-color: transparent;
+   background: transparent;
+   border-color: transparent;
+   margin-bottom: 0px;
+}
+
+.bg-img {
+    background-image:url('../images/bg.jpg');
+    background-repeat:repeat-x;
+    background-size: 100%;
+}
+
+.sharing-bg-img {
+    background-image:url('../images/sharing2.png');
+    background-repeat:repeat-x;
+    background-size: 100%;
+}
+
+.footer {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    height: 60px;
+    text-align:center;
+    margin-top:150px;
+    background-color:transparent;
+    font-size:14px;
+}
+
+
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus {
+    color: #fff;
+    font-size: 17px;
+    background-color: #1abc9c;
+    border:2px solid #1abc9c;
+}
+
+.nav-tabs>li>a {
+    background-color:#ecfcf9;
+    border:0.5px solid #1dd2af;
+    color:#117964;
+    font-size: 17px;
+    margin-right: 10px;
+}
+
+
+.tab-content {
+    border-left: 1px solid #1dd2af;
+    border-right: 1px solid #1dd2af;
+    border-bottom: 1px solid #1dd2af;
+    padding: 10px;
+}
