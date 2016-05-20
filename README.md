@@ -7,7 +7,7 @@
 
 #### Resources
 * Express 4 [Express 4](http://expressjs.com/).
-* Node.js [Node.js]https://nodejs.org/en/.
+* Node.js [Node.js] (https://nodejs.org/en/).
 * and all other resources are in package.json file
 
 #### User Instruction
