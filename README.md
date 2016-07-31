@@ -14,6 +14,7 @@
 We implemented nodemon into our project
 
 1. open command line or terminal, go to the directory of this project folder
+2. type `npm install` to intall all the dependencies
 2. type  `npm start`.
 3. then open any browser, type in `http://localhost:5000`
 
